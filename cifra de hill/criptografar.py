@@ -24,12 +24,12 @@ def mod26_matrix_mult(A, B):
     return resultado
 
 def hill_cipher_cifrar(mensagem, chave):
-    tamanho = 2  # Vamos usar uma matriz 2x2 para a chave
+    tamanho = 2  
     matriz_chave = gerar_matriz_chave(chave, tamanho)
 
     mensagem = mensagem.lower().replace(" ", "")
     while len(mensagem) % tamanho != 0:
-        mensagem += 'x'  # Preencher com 'x' se necessário
+        mensagem += 'x'  
 
     mensagem_numerica = [[ord(char) - ord('a')] for char in mensagem]
 

@@ -49,10 +49,22 @@ def calcular_adjugate(matriz):
             cofator = calcular_determinante(gerar_matriz_submatriz(matriz, i, j))
             linha.append(((-1) ** (i + j)) * cofator)
         adjugate.append(linha)
-    adjugate = [list(i) for i in zip(*adjugate)]  # Transpor
+    adjugate = [list(i) for i in zip(*adjugate)]  
     return adjugate
 
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def verificar_chave_valida(matriz_chave):
+    determinante = calcular_determinante(matriz_chave)
+    if gcd(determinante, 26) != 1:
+        raise ValueError("A chave não é válida: determinante e 26 não são coprimos")
+    return True
+
 def calcular_inversa_matriz(matriz):
+    verificar_chave_valida(matriz)
     determinante = calcular_determinante(matriz)
     inversa_determinante = calcular_inversa_modular(determinante)
     if inversa_determinante is None:
@@ -62,7 +74,7 @@ def calcular_inversa_matriz(matriz):
     return inversa
 
 def hill_cipher_decifrar(mensagem, chave):
-    tamanho = 2  # Vamos usar uma matriz 2x2 para a chave
+    tamanho = 2  
     matriz_chave = gerar_matriz_chave(chave, tamanho)
     matriz_chave = calcular_inversa_matriz(matriz_chave)
 
